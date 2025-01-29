@@ -1,12 +1,10 @@
-﻿namespace StudentAdminPortal.API.Models
+﻿namespace StudentAdminPortal.API.Models.DTOs
 {
-    public class Address
+    public class AddressDTO
     {
         public Guid Id { get; set; }
         public string PhysicalAddress { get; set; }
         public string PostalAddress { get; set; }
-
-        //Navigation prop
         public Guid StudentId { get; set; }
     }
 }

@@ -44,7 +44,7 @@ namespace StudentAdminPortal.API.Migrations
                     b.HasIndex("StudentId")
                         .IsUnique();
 
-                    b.ToTable("Addresses");
+                    b.ToTable("Address");
                 });
 
             modelBuilder.Entity("StudentAdminPortal.API.Models.Gender", b =>
@@ -59,7 +59,7 @@ namespace StudentAdminPortal.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("genders");
+                    b.ToTable("Gender");
                 });
 
             modelBuilder.Entity("StudentAdminPortal.API.Models.Student", b =>
@@ -100,7 +100,7 @@ namespace StudentAdminPortal.API.Migrations
 
                     b.HasIndex("GenderId");
 
-                    b.ToTable("Students");
+                    b.ToTable("Student");
                 });
 
             modelBuilder.Entity("StudentAdminPortal.API.Models.Address", b =>

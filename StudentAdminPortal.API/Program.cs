@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using StudentAdminPortal.API.Data;
+using StudentAdminPortal.API.Profiles;
+using StudentAdminPortal.API.Repositories.Interfaces;
+using StudentAdminPortal.API.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,13 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<StudentAdminContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("StudentAdminDB")));
+
+
+// Register repository services
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+
+// Inject AutoMapper service
+builder.Services.AddAutoMapper(typeof(AutomapperProfiles));
 
 var app = builder.Build();
 
