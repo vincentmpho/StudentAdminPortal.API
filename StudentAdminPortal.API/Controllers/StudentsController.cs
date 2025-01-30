@@ -42,5 +42,28 @@ namespace StudentAdminPortal.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError,"An error occurred while processing your request.");
             }
         }
+
+        [HttpGet]
+        [Route("{studentId:guid}")]
+
+        public async Task<IActionResult> GetStudentAsyc([FromRoute] Guid studentId)
+        {
+
+
+            //Frtch Student Details
+            var student = await _studentRepository.GetStudentAsync(studentId);
+
+
+            //return Student
+            if (student == null) 
+            {
+                return NotFound("No students found.");
+            }
+
+            var mappedStudent = _mapper.Map<Student>(student);
+
+            return Ok(mappedStudent);
+        }
+
     }
 }
