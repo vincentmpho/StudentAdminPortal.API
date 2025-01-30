@@ -27,6 +27,18 @@ builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 // Inject AutoMapper service
 builder.Services.AddAutoMapper(typeof(AutomapperProfiles));
 
+// Add CORS service to allow any origin
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()      // Allow any origin
+               .AllowAnyMethod()      // Allow any HTTP method (GET, POST, etc.)
+               .AllowAnyHeader();     
+    });
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -37,6 +49,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Enable CORS
+app.UseCors("AllowAll");
 
 app.UseAuthorization();
 
