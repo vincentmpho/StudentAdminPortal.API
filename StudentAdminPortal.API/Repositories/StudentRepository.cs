@@ -14,6 +14,11 @@ namespace StudentAdminPortal.API.Repositories
             _context = context;
         }
 
+        public async Task<List<Gender>> GetGendersAsync()
+        {
+           return await _context.Gender.ToListAsync();
+        }
+
         public async Task<Student> GetStudentAsync(Guid studentId)
         {
             var student = await _context.Student
