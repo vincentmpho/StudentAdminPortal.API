@@ -9,7 +9,7 @@
         public string Email { get; set; }
         public long Phone { get; set; }
         public string ProfileImageUrl { get; set; }
-        public Guid GengerId { get; set; }
+        public Guid GenderId { get; set; } 
 
         //Navigation properitey
 
