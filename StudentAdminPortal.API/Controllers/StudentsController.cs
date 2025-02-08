@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using StudentAdminPortal.API.Models;
+using StudentAdminPortal.API.Models.DTOs;
 using StudentAdminPortal.API.Repositories.Interfaces;
 
 namespace StudentAdminPortal.API.Controllers
@@ -64,6 +65,29 @@ namespace StudentAdminPortal.API.Controllers
 
             return Ok(mappedStudent);
         }
+
+        [HttpPut("{studentId:guid}")]
+        public async Task<IActionResult> UpdateStudentAsync(Guid studentId, [FromBody] UpdateStudentDTO request)
+        {
+            if (!await _studentRepository.Exists(studentId))
+            {
+                return NotFound();
+            }
+
+            // Map UpdateStudentDTO to Student
+            var studentEntity = _mapper.Map<Student>(request);
+
+            var updatedStudent = await _studentRepository.UpdateStudent(studentId, studentEntity);
+
+            if (updatedStudent == null)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Failed to update student.");
+            }
+
+            var updatedStudentDTO = _mapper.Map<StudentDTO>(updatedStudent);
+            return Ok(updatedStudentDTO);
+        }
+
 
     }
 }
